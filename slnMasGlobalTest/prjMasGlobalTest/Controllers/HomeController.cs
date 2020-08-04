@@ -2,9 +2,13 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
+using prjMasGlobalTest.DTO;
+using prjMasGlobalTest.Helpers;
 using prjMasGlobalTest.Models;
 
 namespace prjMasGlobalTest.Controllers
@@ -18,9 +22,35 @@ namespace prjMasGlobalTest.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            HelperAPI api = new HelperAPI();
+            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+            HttpClient client = api.Initial();
+            HttpResponseMessage response = await client.GetAsync("/api/Employees");
+
+            if (response.IsSuccessStatusCode)
+            {
+               
+                var results = response.Content.ReadAsStringAsync().Result;
+                employees = JsonConvert.DeserializeObject<List<EmployeeDTO>>(results);
+                
+                /*
+                if (employees != null)
+                {
+                    foreach (var emp in employees)
+                    {
+                        if (emp.ContractTypeName != null)
+                        {
+
+                        }
+
+                    }
+                }*/
+                
+            }
+
+            return View(employees);
         }
 
         public IActionResult Privacy()
