@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using prjMasGlobalTest.DTO;
 using prjMasGlobalTest.Helpers;
 using prjMasGlobalTest.Models;
 
@@ -25,7 +24,7 @@ namespace prjMasGlobalTest.Controllers
         public async Task<IActionResult> Index()
         {
             HelperAPI api = new HelperAPI();
-            List<EmployeeDTO> employees = new List<EmployeeDTO>();
+            List<Employee> employees = new List<Employee>();
             HttpClient client = api.Initial();
             HttpResponseMessage response = await client.GetAsync("/api/Employees");
 
@@ -33,7 +32,7 @@ namespace prjMasGlobalTest.Controllers
             {
                
                 var results = response.Content.ReadAsStringAsync().Result;
-                employees = JsonConvert.DeserializeObject<List<EmployeeDTO>>(results);
+                employees = JsonConvert.DeserializeObject<List<Employee>>(results);
                 
                 /*
                 if (employees != null)
