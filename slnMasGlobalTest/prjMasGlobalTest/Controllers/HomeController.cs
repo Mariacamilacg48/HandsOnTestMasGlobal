@@ -49,7 +49,7 @@ namespace prjMasGlobalTest.Controllers
                 employeeDTO = new List<EmployeeDTO>();
 
 
-                if (!string.IsNullOrEmpty(idEmployee))
+                if (!string.IsNullOrEmpty(idEmployee) && (idEmployee=="1" || idEmployee == "2"))
                 {
                     int idEmployeeGet = Convert.ToInt32(idEmployee);
                     

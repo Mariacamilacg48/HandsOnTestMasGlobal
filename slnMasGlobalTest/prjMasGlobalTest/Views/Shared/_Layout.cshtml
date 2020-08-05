@@ -6,12 +6,25 @@
     <title>@ViewData["Title"] - Employees Data</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script>
+    $(document).ready(function(){
+    $(".form-control").keyup(function(){
+    var sanitized = $(this).val().replace(/[^0-9]/g, '');
+    $(this).val(sanitized);
+    });
+});
+    </script>
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-info border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand text-white"  asp-area="" asp-controller="Home" asp-action="Index">Employees Data</a>
+                <a class="navbar-brand text-white" asp-area="" asp-controller="Home" asp-action="Index">Employees Data</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,9 +49,7 @@
             &copy; 2020 - María Camila Chica Gómez - <a asp-area="" asp-controller="Home" asp-action="Privacy">Employee Data</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
