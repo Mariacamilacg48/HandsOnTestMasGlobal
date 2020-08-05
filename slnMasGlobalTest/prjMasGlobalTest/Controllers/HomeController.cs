@@ -40,7 +40,6 @@ namespace prjMasGlobalTest.Controllers
                 throw;
             }
         }
-
         [HttpPost]
         public async Task<IActionResult> Index(string idEmployee)
         {
@@ -68,21 +67,7 @@ namespace prjMasGlobalTest.Controllers
                 throw;
             }
 
-        }
-        /*
-            if (employees != null)
-            {
-                foreach (var emp in employees)
-                {
-                    if (emp.ContractTypeName != null)
-                    {
-
-                    }
-
-                }
-            }*/
-
-
+        }       
         public IActionResult Privacy()
         {
             return View();

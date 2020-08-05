@@ -3,7 +3,15 @@
 @{
     ViewData["Title"] = "Index";
 }
-    
+
+<script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.1.3.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/jquery.validate.min.js"></script>
+<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.0/additional-methods.min.js"></script>
+<script src="ValueValidation.js"></script>
+
+<script>
+    $(document).getElementById("idEmployee")
+</script>
 <div class="search-container">
 </div>
 
@@ -13,82 +21,110 @@
         <div class="d-flex justify-content-center h-100">
             <div class="search">
                 <div class="md-form active-cyan active-cyan-2 mb-3">
-                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { onsubmit="return (checkForm(this)) && false);"}))
                     {
-                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="idEmployee" name="idEmployee" ]">
-                        <input type="submit" value="Search" class="btn btn-info center-block" id="SearchEmployeeButton"/>
+                        <form id="register-employee" name="myemployeedata">
+                            <table class="table table-info">
+                                <thead>
+                                    <tr>
+                                        <td>
+                                            <input class="form-control" type="number" placeholder="Search" aria-label="Search" id="idEmployee" name="idEmployee" onChange="" ]">
+                                        </td>
+                                        <td>
+                                            <input type="submit" value="Search" class="btn btn-info center-block" id="SearchEmployeeButton" />
+                                        </td>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </form>
                     }
+
                 </div>
-                
+
             </div>
         </div>
     </div>
 </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Id)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Name)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ContractTypeName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoleId)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoleName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoleDescription)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.HourlySalary)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MonthlySalary)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.AnnualSalary)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Id)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ContractTypeName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoleId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoleName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoleDescription)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.HourlySalary)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.MonthlySalary)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.AnnualSalary)
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+<table class="table table-hover table-info">
+    <thead class="text-info">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContractTypeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RoleDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HourlySalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MonthlySalary)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.AnnualSalary)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContractTypeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RoleDescription)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HourlySalary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MonthlySalary)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AnnualSalary)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+
+    alert("Hi")
+    function checkForm(form) {
+        if (form.idEmployee.value <= 0) {
+            alert("Id Invalid");
+            return false;
+        }
+
+        alert("You entered a valid password: " + form.pwd1.value);
+        return true;
+    }
+</script>
