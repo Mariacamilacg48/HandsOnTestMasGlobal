@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using prjMasGlobalLogic;
+using prjMasGlobalTestRepository;
 
 namespace prjMasGlobalTest
 {
@@ -23,10 +25,13 @@ namespace prjMasGlobalTest
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddTransient<IEmployeesRepository, EmployeesRepository>();
+            services.AddTransient<IEmployeeLogic, EmployeeLogic>();
+
+            services.AddSingleton(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using prjMasGlobalCommon.DTO;
+using prjMasGlobalLogic;
 using prjMasGlobalTest.Helpers;
 using prjMasGlobalTest.Models;
 
@@ -15,6 +17,8 @@ namespace prjMasGlobalTest.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private List<EmployeeDTO> employeeDTO;
+        private bool getBild = false;
 
         public HomeController(ILogger<HomeController> logger)
         {
@@ -23,34 +27,61 @@ namespace prjMasGlobalTest.Controllers
 
         public async Task<IActionResult> Index()
         {
-            HelperAPI api = new HelperAPI();
-            List<Employee> employees = new List<Employee>();
-            HttpClient client = api.Initial();
-            HttpResponseMessage response = await client.GetAsync("/api/Employees");
-
-            if (response.IsSuccessStatusCode)
+            try
             {
-               
-                var results = response.Content.ReadAsStringAsync().Result;
-                employees = JsonConvert.DeserializeObject<List<Employee>>(results);
+                EmployeeLogic emp = new EmployeeLogic();
                 
-                /*
-                if (employees != null)
+                employeeDTO = await emp.GetAllEmployees();
+                    
+                return View(employeeDTO);
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string idEmployee)
+        {
+            try
+            {
+                EmployeeLogic emp = new EmployeeLogic();
+                employeeDTO = new List<EmployeeDTO>();
+
+
+                if (!string.IsNullOrEmpty(idEmployee))
                 {
-                    foreach (var emp in employees)
-                    {
-                        if (emp.ContractTypeName != null)
-                        {
+                    int idEmployeeGet = Convert.ToInt32(idEmployee);
+                    
 
-                        }
-
-                    }
-                }*/
-                
+                    employeeDTO.Add(await emp.GetEmployeeById(idEmployeeGet));
+                }
+                else
+                {
+                    employeeDTO = await emp.GetAllEmployees();
+                }
+                return View(employeeDTO);
+            }
+            catch (Exception ex)
+            {
+                throw;
             }
 
-            return View(employees);
         }
+        /*
+            if (employees != null)
+            {
+                foreach (var emp in employees)
+                {
+                    if (emp.ContractTypeName != null)
+                    {
+
+                    }
+
+                }
+            }*/
+
 
         public IActionResult Privacy()
         {

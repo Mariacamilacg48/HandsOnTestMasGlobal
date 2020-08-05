@@ -1,20 +1,25 @@
-﻿@model IEnumerable<prjMasGlobalTest.Models.Employee>
+﻿@model IEnumerable<prjMasGlobalCommon.DTO.EmployeeDTO>
 
 @{
     ViewData["Title"] = "Index";
 }
-
-
+    
 <div class="search-container">
 </div>
 
 <div class="row justify-content-center">
-    <div class="container h-100">
-        <h2>Employees</h2>
+    <div class="container h-100 text-info">
+        <h2 class="text-center">Employees</h2>
         <div class="d-flex justify-content-center h-100">
             <div class="search">
-                <input type="text" class=""form-control form-control-lg form-control-borderless" maxlenght="50" placeholder="Search by IdEmployee..." name="search" id="idEmployee" />
-                <button type="submit" class="btn btn-info">Search<i class="fa fa-search"></i></button>
+                <div class="md-form active-cyan active-cyan-2 mb-3">
+                    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                    {
+                        <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="idEmployee" name="idEmployee" ]">
+                        <input type="submit" value="Search" class="btn btn-info center-block" id="SearchEmployeeButton"/>
+                    }
+                </div>
+                
             </div>
         </div>
     </div>
